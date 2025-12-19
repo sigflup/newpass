@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 FILE *fp;
+int n = 0;
 
 unsigned char get_rand(void) {
  unsigned char ret;
@@ -12,7 +13,8 @@ unsigned char get_rand(void) {
 
 void usage(void) {
  printf("usage:\n"
-	"\tnewpass [-l length]\n");
+	"\tnewpass [-l length][-n]\n"
+	"\t\t-n disables new-line\n");
  exit(0); 
 }
 
@@ -20,13 +22,16 @@ int main(int argc, char *argv[]) {
  int i, opt;
  int l = 12;
 
- while((opt = getopt(argc, argv, "hl:")) != -1) {
+ while((opt = getopt(argc, argv, "nhl:")) != -1) {
   switch(opt) {
    case 'h':
     usage();
     break;
    case 'l':
     l = atoi(optarg);
+    break;
+   case 'n':
+    n = 1;
     break;
    default:
     usage();
@@ -42,5 +47,6 @@ int main(int argc, char *argv[]) {
  for(i=0;i<l;i++)
   putchar(32+(get_rand()%96));
 
+ if(n==0) putchar('\n');
  fclose(fp);
 }	
