@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
  }
 
  for(i=0;i<l;i++)
-  putchar(32+(get_rand()%96));
+  putchar(33+(get_rand()%95));
 
  if(n==0) putchar('\n');
  fclose(fp);
